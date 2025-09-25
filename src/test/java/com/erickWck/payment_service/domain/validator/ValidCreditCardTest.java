@@ -1,19 +1,19 @@
 package com.erickWck.payment_service.domain.validator;
 
 import com.erickWck.payment_service.domain.CardTransaction;
+import com.erickWck.payment_service.domain.PaymentMethod;
 import com.erickWck.payment_service.domain.PaymentStatus;
 import com.erickWck.payment_service.domain.exception.LimitUnavailable;
 import com.erickWck.payment_service.validator.LimitCreditCard;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class ValidCreditCardTest {
@@ -35,11 +35,11 @@ public class ValidCreditCardTest {
                 .cardNumber("79214844500")
                 .expiryDate("122025")
                 .cvv("123")
-                .limit(limitCard)
+                .availableAmount(limitCard)
                 .build();
 
         //act e assert
-        assertEquals(limitCard, card.getLimit());
+        assertEquals(limitCard, card.getAvailableAmount());
     }
 
     @Test
@@ -60,8 +60,9 @@ public class ValidCreditCardTest {
                 .cardNumber("79214844500")
                 .expiryDate("122025")
                 .cvv("123")
-                .limit(limitCard)
+                .availableAmount(limitCard)
                 .status(PaymentStatus.APPROVED)
+                .paymentMethod(PaymentMethod.CREDIT_CARD)
                 .build();
 
         //act eassert

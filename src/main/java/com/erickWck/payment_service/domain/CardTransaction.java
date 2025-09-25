@@ -49,11 +49,13 @@ public class CardTransaction {
     @Pattern(regexp = "^([0-9]{3})$", message = "O número do cartão está invalido.")
     private String cvv;
 
-    @NotNull(message = "O limite não pode estar vazio.")
+    @NotNull(message = "O valor disponível não pode estar vazio.")
     @Size(min = 0)
-    private BigDecimal limit;
+    private BigDecimal availableAmount;
 
     private PaymentStatus status;
+
+    PaymentMethod paymentMethod;
 
     // Agora você pode só mudar o status com setStatus
     public void approved() {

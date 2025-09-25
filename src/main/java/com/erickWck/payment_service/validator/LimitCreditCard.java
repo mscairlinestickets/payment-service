@@ -1,12 +1,10 @@
 package com.erickWck.payment_service.validator;
 
 import com.erickWck.payment_service.domain.CardTransaction;
-import com.erickWck.payment_service.domain.PaymentStatus;
 import com.erickWck.payment_service.domain.exception.LimitUnavailable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.smartcardio.Card;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 

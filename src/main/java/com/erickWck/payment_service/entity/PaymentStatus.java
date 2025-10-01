@@ -1,4 +1,4 @@
-package com.erickWck.payment_service.domain;
+package com.erickWck.payment_service.entity;
 
 public enum PaymentStatus {
 

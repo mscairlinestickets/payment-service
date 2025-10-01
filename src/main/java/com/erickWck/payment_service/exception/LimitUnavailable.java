@@ -1,6 +1,6 @@
-package com.erickWck.payment_service.domain.exception;
+package com.erickWck.payment_service.exception;
 
-import com.erickWck.payment_service.domain.CardTransaction;
+import com.erickWck.payment_service.entity.CardTransaction;
 
 public class LimitUnavailable extends RuntimeException {
 

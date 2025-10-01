@@ -1,4 +1,4 @@
-package com.erickWck.payment_service.domain;
+package com.erickWck.payment_service.entity;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -55,7 +55,7 @@ public class CardTransaction {
 
     private PaymentStatus status;
 
-    PaymentMethod paymentMethod;
+    PaymentType paymentType;
 
     // Agora você pode só mudar o status com setStatus
     public void approved() {

@@ -4,7 +4,6 @@ import com.erickWck.payment_service.domain.contract.Payment;
 import com.erickWck.payment_service.domain.validator.LimitCreditCard;
 import org.springframework.stereotype.Service;
 
-@Service
 public class PaymentService implements Payment {
 
 

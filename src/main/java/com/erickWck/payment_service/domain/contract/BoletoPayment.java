@@ -1,6 +1,9 @@
 package com.erickWck.payment_service.domain.contract;
 
+import com.erickWck.payment_service.entity.PaymentDtoTransaction;
+
 public interface BoletoPayment extends Payment {
 
-    void payWithBoleto(Object object);
+    PaymentDtoTransaction payWithBoleto(PaymentDtoTransaction transaction);
+
 }

@@ -1,9 +1,9 @@
 package com.erickWck.payment_service.domain.contract;
 
-import com.erickWck.payment_service.entity.CardTransaction;
+import com.erickWck.payment_service.entity.PaymentDtoTransaction;
 
 public interface CreditCardPayment extends Payment {
 
-    void payWithCreditCard(CardTransaction transaction);
+    void payWithCreditCard(PaymentDtoTransaction transaction);
 
 }

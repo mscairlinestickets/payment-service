@@ -1,16 +1,14 @@
 package com.erickWck.payment_service.domain.service;
 
 import com.erickWck.payment_service.domain.contract.Payment;
-import com.erickWck.payment_service.domain.validator.LimitCreditCard;
-import org.springframework.stereotype.Service;
+import com.erickWck.payment_service.domain.contractsignature.CreditCardImplements;
 
 public class PaymentService implements Payment {
 
 
-    private LimitCreditCard limitCreditCard;
+    private CreditCardImplements limitCreditCard;
 
-    public PaymentService(LimitCreditCard limitCreditCard) {
+    public PaymentService(CreditCardImplements limitCreditCard) {
         this.limitCreditCard = limitCreditCard;
     }
-
 }

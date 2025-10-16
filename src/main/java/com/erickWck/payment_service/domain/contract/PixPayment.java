@@ -1,7 +1,9 @@
 package com.erickWck.payment_service.domain.contract;
 
+import com.erickWck.payment_service.entity.PaymentDtoTransaction;
+
 public interface PixPayment extends Payment{
 
-    void payWithPix(Object object);
+    PaymentDtoTransaction payWithPix(PaymentDtoTransaction transaction);
 
 }

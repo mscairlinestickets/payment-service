@@ -1,6 +1,6 @@
-package com.erickWck.payment_service.domain.validator;
+package com.erickWck.payment_service.domain.contractsignature;
 
-import com.erickWck.payment_service.entity.CardTransaction;
+import com.erickWck.payment_service.entity.PaymentDtoTransaction;
 import com.erickWck.payment_service.entity.PaymentStatus;
 import com.erickWck.payment_service.exception.LimitUnavailable;
 import org.junit.jupiter.api.DisplayName;
@@ -11,19 +11,18 @@ import java.math.RoundingMode;
 
 import static org.junit.Assert.*;
 
-public class ValidCreditCardTest {
+public class BoletoImplementsTest {
 
     @DisplayName("Compra aprovada atualizando o Status para aprovado.")
     @Test
     void limitCard() {
         //arrange
-        LimitCreditCard limit = new LimitCreditCard();
+        CreditCardImplements limit = new CreditCardImplements();
         BigDecimal limitCard = getCreatedLimit();
 
-        CardTransaction card = CardTransaction.builder()
+        PaymentDtoTransaction card = PaymentDtoTransaction.builder()
                 .name("Erick Silva")
                 .cpfNumber("79214844500")
-                .paymentId(98765L)
                 .bookId(1L)
                 .cardholderName("João da Silva")
                 .amount(BigDecimal.valueOf(1800.90))
@@ -45,10 +44,10 @@ public class ValidCreditCardTest {
     @Test
     void shouldApprovedAmmountAndAvaliableAmountIsEquals() {
         //arrange
-        LimitCreditCard limit = new LimitCreditCard();
+        CreditCardImplements limit = new CreditCardImplements();
         BigDecimal limitCard = BigDecimal.valueOf(3500.50).setScale(2, RoundingMode.HALF_UP);
 
-        CardTransaction card = CardTransaction.builder()
+        PaymentDtoTransaction card = PaymentDtoTransaction.builder()
                 .amount(limitCard)
                 .availableAmount(limitCard)
                 .build();
@@ -64,11 +63,11 @@ public class ValidCreditCardTest {
     @Test
     void shouldRejectWhenAmountIsGreaterThanLimit() {
         //arrange
-        LimitCreditCard limit = new LimitCreditCard();
+        CreditCardImplements limit = new CreditCardImplements();
 
         BigDecimal limitCard = BigDecimal.valueOf(200.90).setScale(2, RoundingMode.HALF_UP);
 
-        CardTransaction card = CardTransaction.builder()
+        PaymentDtoTransaction card = PaymentDtoTransaction.builder()
                 .amount(BigDecimal.valueOf(3500.50))
                 .availableAmount(limitCard)
                 .build();
@@ -82,11 +81,11 @@ public class ValidCreditCardTest {
     @Test
     void limitIsSmallerThanZero() {
         //arrange
-        LimitCreditCard limit = new LimitCreditCard();
+        CreditCardImplements limit = new CreditCardImplements();
 
         BigDecimal limitCard = BigDecimal.valueOf(-1);
 
-        CardTransaction card = CardTransaction.builder()
+        PaymentDtoTransaction card = PaymentDtoTransaction.builder()
                 .amount(BigDecimal.valueOf(100))
                 .availableAmount(limitCard)
                 .build();

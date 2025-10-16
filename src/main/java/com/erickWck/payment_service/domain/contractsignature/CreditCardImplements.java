@@ -1,4 +1,4 @@
-package com.erickWck.payment_service.domain.validator;
+package com.erickWck.payment_service.domain.signature;
 
 import com.erickWck.payment_service.domain.contract.CreditCardPayment;
 import com.erickWck.payment_service.entity.CardTransaction;
@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class LimitCreditCard implements CreditCardPayment {
+public class CreditCardImplements implements CreditCardPayment {
 
-    private static final Logger log = LoggerFactory.getLogger(LimitCreditCard.class);
+    private static final Logger log = LoggerFactory.getLogger(CreditCardImplements.class);
 
     @Override
     public void payWithCreditCard(CardTransaction card) {

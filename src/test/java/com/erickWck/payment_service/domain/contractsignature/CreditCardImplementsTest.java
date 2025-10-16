@@ -11,7 +11,7 @@ import java.math.RoundingMode;
 
 import static org.junit.Assert.*;
 
-public class BoletoImplementsTest {
+public class CreditCardImplementsTest {
 
     @DisplayName("Compra aprovada atualizando o Status para aprovado.")
     @Test

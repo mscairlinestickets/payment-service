@@ -1,1 +1,10 @@
-spring.application.name=payment-service
+springdoc:
+  swagger-ui:
+    path: /docs
+server:
+  port: 9003
+spring:
+  application:
+    name: payment-service
+  main:
+    banner-mode: OFF

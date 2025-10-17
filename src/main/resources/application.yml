@@ -8,3 +8,8 @@ spring:
     name: payment-service
   main:
     banner-mode: OFF
+
+app:
+  consumetopic: booking-accepted
+  localhost: localhost:29092
+  typeoffseat: latest

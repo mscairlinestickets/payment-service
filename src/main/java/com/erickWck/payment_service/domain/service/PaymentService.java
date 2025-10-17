@@ -11,10 +11,14 @@ import org.springframework.stereotype.Service;
 public class PaymentService implements Payment {
 
 
+
     @KafkaListener(topics = "${app.consumetopic}", groupId = "${spring.application.name}")
     public void consume(@Header(KafkaHeaders.RECEIVED_KEY) Long key, PaymentDtoTransaction payload) {
         System.out.println("🔑 Key: " + key);
         System.out.println("📦 Mensagem recebida: " + payload);
     }
+
+
+
 
 }

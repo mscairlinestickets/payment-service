@@ -7,7 +7,6 @@ import com.erickWck.payment_service.entity.PaymentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 public class PixImplements implements PixPayment {

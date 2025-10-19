@@ -5,10 +5,9 @@ import com.erickWck.payment_service.domain.mapper.PixDtoMapper;
 import com.erickWck.payment_service.domain.repositories.PaymentRepository;
 import com.erickWck.payment_service.entity.Payment;
 import com.erickWck.payment_service.entity.PaymentDtoTransaction;
-import com.erickWck.payment_service.exception.PaymentAlreadyExist;
 import org.springframework.stereotype.Service;
 
-import static com.erickWck.payment_service.domain.mapper.PixDtoMapper.paymentDtoToPayment;
+import static com.erickWck.payment_service.domain.mapper.PixDtoMapper.paymentDtoToPaymentIfxPix;
 
 @Service
 public class PixService {
@@ -25,23 +24,25 @@ public class PixService {
 
     public PaymentDtoTransaction verifyTypeIsPix(PaymentDtoTransaction paymentDtoTransaction) {
         if (paymentDtoTransaction.getType().equals("PIX")) {
-            return pixImplements.payWithPix(paymentDtoTransaction);
+            var payment = PixDtoMapper.paymentDtoToPaymentIfxPix(pixImplements.processPayment(paymentDtoTransaction));
+            createPayment(paymentDtoTransaction);
+            return paymentDtoTransaction;
         }
         return null;
     }
 
-
     public PaymentDtoTransaction payIfTypePix(PaymentDtoTransaction payment) {
-        return pixImplements.payWithPix(payment);
+        return pixImplements.processPayment(payment);
     }
 
 
     public Payment createPayment(PaymentDtoTransaction transaction) {
 
         var bookId = transaction.getBookId();
-        var payment = paymentDtoToPayment(transaction);
+        var payment = paymentDtoToPaymentIfxPix(transaction);
 
         return paymentRepository.findByBookId(bookId)
                 .orElseGet(() -> paymentRepository.save(payment));
     }
+
 }

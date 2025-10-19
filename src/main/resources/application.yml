@@ -8,6 +8,13 @@ spring:
     name: payment-service
   main:
     banner-mode: OFF
+  datasource:
+    url: jdbc:postgresql://localhost:5432/airlinedb_ticket
+    username: user
+    password: password
+    hikari:
+      connection-timeout: 2000 #ms
+      maximum-pool-size: 5
 
 app:
   consumetopic: booking-accepted

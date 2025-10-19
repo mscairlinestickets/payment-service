@@ -32,7 +32,7 @@ class PixImplementsTest {
                 .build();
 
         // Act
-        pixImplements.payWithPix(transaction);
+        pixImplements.processPayment(transaction);
 
         // Assert
         assertEquals(PaymentStatus.APPROVED, transaction.getStatus());
@@ -58,10 +58,10 @@ class PixImplementsTest {
                 .build();
 
         // Act & Assert
-        IllegalArgumentException exceptionZero = assertThrows(IllegalArgumentException.class, () -> pixImplements.payWithPix(transactionZero));
+        IllegalArgumentException exceptionZero = assertThrows(IllegalArgumentException.class, () -> pixImplements.processPayment(transactionZero));
         assertEquals("Valor de pagamento Pix deve ser maior que zero.", exceptionZero.getMessage());
 
-        IllegalArgumentException exceptionNegative = assertThrows(IllegalArgumentException.class, () -> pixImplements.payWithPix(transactionNegative));
+        IllegalArgumentException exceptionNegative = assertThrows(IllegalArgumentException.class, () -> pixImplements.processPayment(transactionNegative));
         assertEquals("Valor de pagamento Pix deve ser maior que zero.", exceptionNegative.getMessage());
     }
 
@@ -77,9 +77,39 @@ class PixImplementsTest {
                 .status(PaymentStatus.PENDING)
                 .build();
         // Act
-        var response = pixImplements.payWithPix(transaction);
+        var response = pixImplements.processPayment(transaction);
         // Assert
         assertEquals(PaymentStatus.APPROVED, response.getStatus());
         assertEquals(PaymentType.PIX, response.getPaymentType());
     }
+
+    @Test
+    void payWithPixShouldThrowExceptionIfAmountIsNull(){
+        //arrange
+        PaymentDtoTransaction transaction = PaymentDtoTransaction.builder()
+                .bookId(1L)
+                .name("Erick Silva")
+                .pixKey("chavepixaleatoria123")
+                .status(PaymentStatus.PENDING)
+                .build();
+        //act e assert
+        assertThrows(IllegalArgumentException.class, ()-> pixImplements.processPayment(transaction));
+
+    }
+
+    @Test
+    void payWithPixShouldThrowExceptionIfAmountIsNegative(){
+        //arrange
+        PaymentDtoTransaction transaction = PaymentDtoTransaction.builder()
+                .bookId(1L)
+                .name("Erick Silva")
+                .pixKey("chavepixaleatoria123")
+                .amount(BigDecimal.valueOf(-5))
+                .status(PaymentStatus.PENDING)
+                .build();
+        //act e assert
+        assertThrows(IllegalArgumentException.class, ()-> pixImplements.processPayment(transaction));
+
+    }
+
 }

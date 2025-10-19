@@ -8,7 +8,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class PixDtoMapper {
 
-    public static Payment paymentDtoToPayment(PaymentDtoTransaction transaction) {
+    public static Payment paymentDtoToPaymentIfxPix(PaymentDtoTransaction transaction) {
         return  Payment.builder()
                 .bookId(transaction.getBookId())
                 .name(transaction.getName())

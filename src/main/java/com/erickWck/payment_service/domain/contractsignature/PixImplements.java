@@ -1,26 +1,27 @@
 package com.erickWck.payment_service.domain.contractsignature;
 
-import com.erickWck.payment_service.domain.contract.PixPayment;
+import com.erickWck.payment_service.domain.contract.Payment;
 import com.erickWck.payment_service.entity.PaymentDtoTransaction;
 import com.erickWck.payment_service.entity.PaymentStatus;
 import com.erickWck.payment_service.entity.PaymentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-public class PixImplements implements PixPayment {
+@Service
+public class PixImplements implements Payment {
 
     private static final Logger log = LoggerFactory.getLogger(PixImplements.class);
 
     @Override
-    public PaymentDtoTransaction payWithPix(PaymentDtoTransaction transaction) {
+    public PaymentDtoTransaction processPayment(PaymentDtoTransaction transaction) {
 
         if (transaction.getAmount() == null || transaction.getAmount().signum() <= 0) {
             throw new IllegalArgumentException("Valor de pagamento Pix deve ser maior que zero.");
         }
 
-        // 2️ Define o tipo e o status inicial
         transaction.setPaymentType(PaymentType.PIX);
         transaction.setStatus(PaymentStatus.PENDING);
 
@@ -31,7 +32,6 @@ public class PixImplements implements PixPayment {
                 transaction.getStatus(),
                 transaction.getPixKey());
 
-        // 3️ Simula o processamento e confirmação
         simulatePixConfirmation(transaction);
         return transaction;
     }

@@ -1,6 +1,6 @@
 package com.erickWck.payment_service.domain.contractsignature;
 
-import com.erickWck.payment_service.domain.contract.CreditCardPayment;
+import com.erickWck.payment_service.domain.contract.Payment;
 import com.erickWck.payment_service.entity.PaymentDtoTransaction;
 import com.erickWck.payment_service.exception.LimitUnavailable;
 import org.slf4j.Logger;
@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class CreditCardImplements implements CreditCardPayment {
+public class CreditCardImplements implements Payment {
 
     private static final Logger log = LoggerFactory.getLogger(CreditCardImplements.class);
 
     @Override
-    public void payWithCreditCard(PaymentDtoTransaction card) {
+    public PaymentDtoTransaction processPayment(PaymentDtoTransaction card) {
 
         BigDecimal limit = card.getAvailableAmount();
         if (limit.compareTo(BigDecimal.ZERO) <= 0 || card.getAmount().compareTo(limit) > 0) {
@@ -28,6 +28,7 @@ public class CreditCardImplements implements CreditCardPayment {
                     card.getBookId(), card.getName(), card.getCpfNumber(),
                     card.getAmount(), card.getAmount());
             card.approved();
+            return card;
         }
     }
 

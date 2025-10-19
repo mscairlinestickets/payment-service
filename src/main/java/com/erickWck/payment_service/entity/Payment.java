@@ -1,9 +1,6 @@
 package com.erickWck.payment_service.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
 import lombok.Builder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -11,6 +8,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import java.math.BigDecimal;
 import java.time.Instant;
 
+@Entity
 @Builder(toBuilder = true)
 public record Payment(
 

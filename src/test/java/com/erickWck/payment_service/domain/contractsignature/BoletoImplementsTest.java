@@ -31,7 +31,7 @@ class BoletoImplementsTest {
         var payment = getPaymentTransaction();
         payment.setAvailableAmount(limitCard);
         //act e assert
-        assertThrows(LimitUnavailable.class, () -> boletoImplements.payWithBoleto(payment));
+        assertThrows(LimitUnavailable.class, () -> boletoImplements.processPayment(payment));
         assertEquals(PaymentStatus.REJECTED, payment.getStatus());
     }
 
@@ -43,7 +43,7 @@ class BoletoImplementsTest {
         var payment = getPaymentTransaction();
         payment.setAvailableAmount(limitCard);
         //act e assert
-        assertThrows(LimitUnavailable.class, () -> boletoImplements.payWithBoleto(payment));
+        assertThrows(LimitUnavailable.class, () -> boletoImplements.processPayment(payment));
         assertEquals(PaymentStatus.REJECTED, payment.getStatus());
     }
 
@@ -57,7 +57,7 @@ class BoletoImplementsTest {
         payment.setAvailableAmount(limitCard);
 
         //act
-        var response = boletoImplements.payWithBoleto(payment);
+        var response = boletoImplements.processPayment(payment);
 
         //assert
         assertEquals(PaymentStatus.APPROVED, response.getStatus());

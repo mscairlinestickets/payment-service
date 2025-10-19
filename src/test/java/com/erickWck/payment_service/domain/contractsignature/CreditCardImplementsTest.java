@@ -34,7 +34,7 @@ public class CreditCardImplementsTest {
                 .build();
 
         //act
-        limit.payWithCreditCard(card);
+        limit.processPayment(card);
         // assert
         assertNotEquals(limitCard, card.getAmount());
         assertEquals(PaymentStatus.APPROVED, card.getStatus());
@@ -53,7 +53,7 @@ public class CreditCardImplementsTest {
                 .build();
 
         //act
-        limit.payWithCreditCard(card);
+        limit.processPayment(card);
 
         // assert
         assertEquals(PaymentStatus.APPROVED, card.getStatus());
@@ -73,7 +73,7 @@ public class CreditCardImplementsTest {
                 .build();
 
         //act eassert
-        assertThrows(LimitUnavailable.class, () -> limit.payWithCreditCard(card));
+        assertThrows(LimitUnavailable.class, () -> limit.processPayment(card));
         assertEquals(PaymentStatus.REJECTED, card.getStatus());
     }
 
@@ -91,7 +91,7 @@ public class CreditCardImplementsTest {
                 .build();
 
         //act eassert
-        assertThrows(LimitUnavailable.class, () -> limit.payWithCreditCard(card));
+        assertThrows(LimitUnavailable.class, () -> limit.processPayment(card));
         assertEquals(PaymentStatus.REJECTED, card.getStatus());
     }
 

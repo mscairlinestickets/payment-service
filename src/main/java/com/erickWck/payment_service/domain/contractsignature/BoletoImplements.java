@@ -1,6 +1,6 @@
 package com.erickWck.payment_service.domain.contractsignature;
 
-import com.erickWck.payment_service.domain.contract.BoletoPayment;
+import com.erickWck.payment_service.domain.contract.Payment;
 import com.erickWck.payment_service.entity.PaymentDtoTransaction;
 import com.erickWck.payment_service.entity.PaymentStatus;
 import com.erickWck.payment_service.entity.PaymentType;
@@ -12,12 +12,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class BoletoImplements implements BoletoPayment {
+public class BoletoImplements implements Payment {
 
     Logger log = LoggerFactory.getLogger(BoletoImplements.class);
 
-    @Override
-    public PaymentDtoTransaction payWithBoleto(PaymentDtoTransaction payment) {
+    public PaymentDtoTransaction processPayment(PaymentDtoTransaction payment) {
 
         payment.setPaymentType(PaymentType.BOLETO);
 
@@ -38,7 +37,8 @@ public class BoletoImplements implements BoletoPayment {
         var limit = payment.getAvailableAmount();
         if (limit.compareTo(BigDecimal.ZERO) <= 0 || payment.getAmount().compareTo(limit) > 0) {
             payment.setStatus(PaymentStatus.REJECTED);
-            log.info("Pedido {} | Cliente {} | CPF {} | Valor {} | Limite {} | REJEITADO - Limite insuficiente.", payment.getBookId(), payment.getName(), payment.getAmount(), payment.getStatus());
+            log.info("Pedido {} | Cliente {} | CPF {} | Valor {} | Limite {} | REJEITADO - Limite insuficiente.",
+                    payment.getBookId(), payment.getName(), payment.getAmount(), payment.getStatus());
             throw new LimitUnavailable(payment);
         }
     }

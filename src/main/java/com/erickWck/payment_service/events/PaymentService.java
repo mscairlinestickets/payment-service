@@ -1,6 +1,5 @@
-package com.erickWck.payment_service.domain.service;
+package com.erickWck.payment_service.events;
 
-import com.erickWck.payment_service.domain.contract.Payment;
 import com.erickWck.payment_service.entity.PaymentDtoTransaction;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -15,6 +14,5 @@ public class PaymentService  {
         System.out.println("🔑 Key: " + key);
         System.out.println("📦 Mensagem recebida: " + payload);
     }
-
 
 }

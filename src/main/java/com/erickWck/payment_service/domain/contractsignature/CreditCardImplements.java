@@ -5,10 +5,12 @@ import com.erickWck.payment_service.entity.PaymentDtoTransaction;
 import com.erickWck.payment_service.exception.LimitUnavailable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@Service
 public class CreditCardImplements implements Payment {
 
     private static final Logger log = LoggerFactory.getLogger(CreditCardImplements.class);

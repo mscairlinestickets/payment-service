@@ -1,7 +1,8 @@
-package com.erickWck.payment_service.domain.service;
+package com.erickWck.payment_service.domain.service.pix;
 
 import com.erickWck.payment_service.domain.contractsignature.PixImplements;
 import com.erickWck.payment_service.domain.repositories.PaymentRepository;
+import com.erickWck.payment_service.domain.service.PixService;
 import com.erickWck.payment_service.entity.Payment;
 import com.erickWck.payment_service.entity.PaymentDtoTransaction;
 import com.erickWck.payment_service.entity.PaymentStatus;
@@ -47,11 +48,11 @@ public class PixServiceTest {
             when(pixImplements.processPayment(any())).thenReturn(responsePayment);
 
             //act
-            var response = pixService.payIfTypePix(payment);
+            var response = pixService.verifyTypeIsPix(payment);
 
             //assert
             assertEquals(PaymentStatus.PENDING, response.getStatus());
-            assertEquals(PaymentType.PIX, response.getPaymentType());
+            assertEquals(PaymentType.PIX.toString(), response.getType());
             assertEquals(payment.getBookId(), response.getBookId());
         }
 
@@ -105,11 +106,11 @@ public class PixServiceTest {
             var response = pixService.createPayment(payment);
             //assert
 
-            assertEquals(payment.getBookId(), response.bookId());
-            assertEquals(payment.getName(), response.name());
-            assertEquals(payment.getPixKey(), response.pixKey());
-            assertEquals(payment.getAmount(), response.amount());
-            assertEquals(PaymentStatus.APPROVED, response.status());
+            assertEquals(payment.getBookId(), response.getBookId());
+            assertEquals(payment.getName(), response.getName());
+            assertEquals(payment.getPixKey(), response.getPixKey());
+            assertEquals(payment.getAmount(), response.getAmount());
+            assertEquals(PaymentStatus.APPROVED, response.getStatus());
             verify(paymentRepository, times(1)).save(any());
 
         }
@@ -145,11 +146,11 @@ public class PixServiceTest {
             var result = pixService.createPayment(payment);
 
             //assert
-            assertEquals(payment.getBookId(), result.bookId());
-            assertEquals(payment.getName(), result.name());
-            assertEquals(payment.getPixKey(), result.pixKey());
-            assertEquals(payment.getAmount(), result.amount());
-            assertEquals(PaymentStatus.APPROVED, result.status());
+            assertEquals(payment.getBookId(), result.getBookId());
+            assertEquals(payment.getName(), result.getName());
+            assertEquals(payment.getPixKey(), result.getPixKey());
+            assertEquals(payment.getAmount(), result.getAmount());
+            assertEquals(PaymentStatus.APPROVED, result.getStatus());
             verify(paymentRepository, never()).save(any());
         }
 

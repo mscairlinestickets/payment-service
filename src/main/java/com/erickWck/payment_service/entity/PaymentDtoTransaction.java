@@ -1,6 +1,8 @@
 package com.erickWck.payment_service.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -56,8 +58,10 @@ public class PaymentDtoTransaction {
     @Size(min = 0)
     private BigDecimal availableAmount;
 
+    @Enumerated(EnumType.STRING)
     private PaymentStatus status;
 
+    @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
 
     public void approved() {

@@ -15,6 +15,12 @@ spring:
     hikari:
       connection-timeout: 2000 #ms
       maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+
 
 app:
   consumetopic: booking-accepted

@@ -1,53 +1,57 @@
 package com.erickWck.payment_service.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate; // Corrigido
+import org.springframework.data.jpa.domain.support.AuditingEntityListener; // Necessário para Auditing
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
-@Builder(toBuilder = true)
-public record Payment(
+@Table(name = "tb_payment")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+public class Payment {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        Long id,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        Long bookId,
+    private Long bookId;
 
-        String name,
+    private String name;
 
-        String cpfNumber,
+    private String cpfNumber;
 
-        String cardholderName,
+    private String cardholderName;
 
-        String pixKey,
+    private String pixKey;
 
-        BigDecimal amount,
+    private BigDecimal amount;
 
-        String type,
+    private String type;
 
-        String cardNumber,
+    private String cardNumber;
+    private String expiryDate;
+    private String cvv;
 
-        String expiryDate,
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus status;
 
-        String cvv,
+    @Enumerated(EnumType.STRING)
+    private PaymentType paymentType;
 
-        PaymentStatus status,
+    @CreatedDate
+    private Instant createdAt;
 
-        PaymentType paymentType,
+    @LastModifiedDate
+    private Instant lastModifiedAt;
 
-        @CreatedDate
-        Instant createdAt,
-
-        @LastModifiedBy
-        Instant lastModifiedAt,
-
-        @Version
-        int version
-) {
-
+    @Version
+    private int version;
 }

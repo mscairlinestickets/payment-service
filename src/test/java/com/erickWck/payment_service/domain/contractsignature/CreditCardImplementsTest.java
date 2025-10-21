@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 public class CreditCardImplementsTest {
 
@@ -63,16 +65,16 @@ public class CreditCardImplementsTest {
     @Test
     void shouldRejectWhenAmountIsGreaterThanLimit() {
         //arrange
-        CreditCardImplements limit = new CreditCardImplements();
+        CreditCardImplements limit = spy(new CreditCardImplements());
+         when(limit.createLimitCard()).thenReturn(BigDecimal.valueOf(100.00));
 
         BigDecimal limitCard = BigDecimal.valueOf(200.90).setScale(2, RoundingMode.HALF_UP);
-
         PaymentDtoTransaction card = PaymentDtoTransaction.builder()
                 .amount(BigDecimal.valueOf(3500.50))
                 .availableAmount(limitCard)
                 .build();
 
-        //act eassert
+        //act e assert
         assertThrows(LimitUnavailable.class, () -> limit.processPayment(card));
         assertEquals(PaymentStatus.REJECTED, card.getStatus());
     }
@@ -81,8 +83,8 @@ public class CreditCardImplementsTest {
     @Test
     void limitIsSmallerThanZero() {
         //arrange
-        CreditCardImplements limit = new CreditCardImplements();
-
+        CreditCardImplements limit = spy(new CreditCardImplements());
+        when(limit.createLimitCard()).thenReturn(BigDecimal.valueOf(-1));
         BigDecimal limitCard = BigDecimal.valueOf(-1);
 
         PaymentDtoTransaction card = PaymentDtoTransaction.builder()

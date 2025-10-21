@@ -31,7 +31,6 @@ public class CreditcardService {
         if (type == null) {
             throw new IllegalArgumentException("O type não pode ser null.");
         }
-
         if (type.equals("CREDITO"))
             return true;
         else

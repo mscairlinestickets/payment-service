@@ -7,11 +7,13 @@ import com.erickWck.payment_service.entity.PaymentType;
 import com.erickWck.payment_service.exception.LimitUnavailable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Service
 public class BoletoImplements implements Payment {
 
     Logger log = LoggerFactory.getLogger(BoletoImplements.class);
@@ -33,7 +35,7 @@ public class BoletoImplements implements Payment {
         return payment;
     }
 
-    private void validLimitIsValid(PaymentDtoTransaction payment) {
+    public void validLimitIsValid(PaymentDtoTransaction payment) {
         var limit = payment.getAvailableAmount();
         if (limit.compareTo(BigDecimal.ZERO) <= 0 || payment.getAmount().compareTo(limit) > 0) {
             payment.setStatus(PaymentStatus.REJECTED);

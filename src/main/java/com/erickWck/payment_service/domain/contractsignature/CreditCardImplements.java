@@ -18,6 +18,7 @@ public class CreditCardImplements implements Payment {
     @Override
     public PaymentDtoTransaction processPayment(PaymentDtoTransaction card) {
 
+        card.setAvailableAmount(createLimitCard());
         BigDecimal limit = card.getAvailableAmount();
         if (limit.compareTo(BigDecimal.ZERO) <= 0 || card.getAmount().compareTo(limit) > 0) {
             log.info("Pedido {} | Cliente {} | CPF {} | Valor {} | Limite {} | REJEITADO",
@@ -37,7 +38,7 @@ public class CreditCardImplements implements Payment {
     public BigDecimal createLimitCard() {
 
         log.info("Criando um limite aleatorio para simular a validação.");
-        double limit = Math.random() * 300000 + 1;
+        double limit = Math.random() * 30000 + 1;
         return BigDecimal.valueOf(limit)
                 .setScale(2, RoundingMode.HALF_UP);
     }

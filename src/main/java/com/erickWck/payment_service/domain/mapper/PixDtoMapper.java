@@ -45,5 +45,19 @@ public class PixDtoMapper {
                 .build();
     }
 
+    public  static Payment transactionToPaymentIfBoleto(PaymentDtoTransaction transaction){
+        return Payment.builder()
+                .bookId(transaction.getBookId())
+                .amount(transaction.getAmount())
+                .name(transaction.getName())
+                .cpfNumber(transaction.getCpfNumber())
+                .type(transaction.getType())
+                .status(PaymentStatus.APPROVED)
+                .lastModifiedAt(null)
+                .createdAt(null)
+                .version(0)
+                .build();
+    }
+
 
 }

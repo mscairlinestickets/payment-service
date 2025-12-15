@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://airline-postgres/airlinedb_payment
+
+app:
+  consumetopic: booking-accepted
+  localhost: kafka-airlines:29092
+  typeoffseat: latest
